@@ -129,9 +129,6 @@ end)
 
 script.on_event(defines.events.on_player_created, function(event)
   local player = game.get_player(event.player_index)
-  if (#game.players <= 1) then
-    game.show_message_dialog{text = {"msg-intro"}}
-  end
   player.force.chart(player.surface, {
     {player.position.x - 200, player.position.y - 200},
     {player.position.x + 200, player.position.y + 200}
