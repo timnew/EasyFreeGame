@@ -1,4 +1,3 @@
-
 registerBatch("ammo", {
   "explosive-bullet-magazine",
   "explosive-rocket",
@@ -6,14 +5,14 @@ registerBatch("ammo", {
   "piercing-shotgun-shell"
 })
 
-registerBatch("weapons", {
+registerBatch("weapon", {
   {name="gatling-gun", count=1},
   {name="combat-shotgun", count=1},
   {name="rocket-launcher", count=1},
   {name="flame-thrower", count=1}
 })
 
-registerBatch("fullAmor", {
+registerBatch("fullArmor", {
   {name="power-armor-mk2", count=1},
   {name="personal-roboport-equipment", count=1},
   {name="night-vision-equipment", count=1},

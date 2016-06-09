@@ -81,15 +81,15 @@ function showItems(player, group, subgroup)
     player.print(item)
   end
 end
-registerPlayerApi("showItems", function(player, group, subgroup, name, count)
+registerPlayerApi("showItems", function(player, group, subgroup, item)
   if group == nil then
     showGroups(player)
   elseif subgroup == nil then
     showSubGroup(player, group)
-  elseif name == nil then
+  elseif item == nil then
     showItems(player, group, subgroup)
   else
-    insertItem(player, name, count)
+    insertItem(player, item)
   end
 end)
 
@@ -116,13 +116,70 @@ function insertBatch(target, batchName)
   local batch = batches[batchName]
 
   if batch == nil then
-    game.local_player.print("Unknown batch " .. batchName)
+    debug("Unknown batch " .. batchName)
     return
   end
 
-  for name, count in pairs(batch) do
-    target.insert{name=name, count=tostring(count)}
+  for _, item in pairs(batch) do
+    insertItem(target, item)
   end
 end
 registerGiveApi("giveBatch", insertBatch)
 registerPlayerApi("giveMeBatch", insertBatch)
+
+function findBatch(player, pattern)
+  player.print("Find Batch whose name includes " .. pattern)
+
+  for name, _ in pairs(items) do
+    if string.find(name, pattern) then
+      player.print(name)
+    end
+  end
+end
+registerPlayerApi("findBatch", findBatch)
+
+function showBatch(player)
+  player.print("Batches:")
+
+  for name, _ in pairs(batches) do
+    player.print(name)
+  end
+end
+function showBatchContent(player, batch)
+  local batchTable = batches[batch]
+
+  if batchTable == nil then
+    player.print("Invalid batch " .. batch)
+    return
+  end
+
+  player.print("Batch " .. batch .. ":")
+
+  for name, _ in pairs(batchTable) do
+    player.print(name)
+  end
+end
+registerPlayerApi("showBatch", function(player, batchName, give)
+  if batchName == nil then
+    showBatch(player)
+  elseif give == nil then
+    showBatch(player, batchName)
+  else
+    insertBatch(player, batchName)
+  end
+end)
+
+function insertGroup(target, group, subgroup)
+  local table = groups[group][subgroup]
+
+  if table == nil then
+    debug("Unknown Group: " .. group .. "." .. subgroup)
+    return
+  end
+
+  for name, count in pairs(table) do
+    target.insert{name = name, count = count}
+  end
+end
+registerGiveApi("giveGroup", insertGroup)
+registerPlayerApi("giveMeGroup", insertGroup)

@@ -7,4 +7,6 @@ require "utilities"
 require "metaApis"
 require "apis"
 
+require "batches"
+
 require "eventHooks"

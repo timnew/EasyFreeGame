@@ -17,11 +17,16 @@ function registerBatch(batchName, data)
   local batch = ensureChildTable(batches, batchName)
 
   for _, item in ipairs(data) do
-    local name, count = parseItem(item)
+    local name, normalizeItem = normalizeItem(item)
 
     if name then
-      batch[name] = count
+      batch[name] = normalizeItem
     end
   end
 end
 apis.registerBatch = registerBatch
+
+function duplicateBatch(originalBatch, newBatch)
+  registerBatch(newBatch, ensureChildTable(batches, originalBatch))
+end
+apis.duplicateBatch = duplicateBatch

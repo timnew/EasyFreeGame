@@ -1,3 +1,9 @@
+function debug(...)
+  if game.player then
+    game.player.print(...)
+  end
+end
+
 function ensureChildTable(parent, name)
   local table = parent[name]
 
@@ -9,6 +15,18 @@ function ensureChildTable(parent, name)
   return table
 end
 
+function normalizeItem(item)
+  if type(item) == 'string' then
+    return item, {name=item, stackCount=1}
+  elseif type(item) == 'table' then
+    if item.count or item.stackCount then
+      return item.name, item
+    else
+      return item.name, {name=item.name, stackCount=1}
+    end
+  end
+end
+
 function parseItem(item)
   if type(item) == 'string' then
     local stackSize = items[item]
@@ -16,8 +34,8 @@ function parseItem(item)
     if stackSize then
       return item, stackSize
     else
-      game.local_player.print("Unkown Item:")
-      game.local_player.print(item)
+      debug("Unkown Item:")
+      debug(item)
       return nil
     end
 
@@ -25,8 +43,8 @@ function parseItem(item)
     local stackSize = items[item.name]
 
     if stackSize == nil then
-      game.local_player.print("Unkown Item:")
-      game.local_player.print(item)
+      debug("Unkown Item:")
+      debug(item)
     end
 
     if item.count then
