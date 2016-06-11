@@ -1,14 +1,14 @@
 
 function registerPlayerApi(name, api)
   apis[name] = function(...)
-     api(game.local_player, ...)
+     api(game.player, ...)
   end
 end
 apis.registerPlayerApi = registerPlayerApi
 
 function registerGiveApi(name, api)
   apis[name] = function(...)
-     api(injectPoints[game.local_player.index], ...)
+     api(injectPoints[game.player.index], ...)
   end
 end
 apis.registerGiveApi = registerGiveApi
@@ -30,3 +30,17 @@ function duplicateBatch(originalBatch, newBatch)
   registerBatch(newBatch, ensureChildTable(batches, originalBatch))
 end
 apis.duplicateBatch = duplicateBatch
+
+function initItemsData()
+  for _, item in pairs(game.item_prototypes) do
+    local group = item.group.name
+    local subgroup = item.subgroup.name
+
+    local groupTable = ensureChildTable(groups, group)
+    local subgroupTable = ensureChildTable(groupTable, subgroup)
+
+    subgroupTable[item.name] = item.stack_size
+    items[item.name] = item.stack_size
+  end
+end
+apis.initItemsData = initItemsData

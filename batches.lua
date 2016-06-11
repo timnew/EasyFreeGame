@@ -13,15 +13,15 @@ registerBatch("weapon", {
 })
 
 registerBatch("fullArmor", {
-  {name="power-armor-mk2", count=1},
-  {name="personal-roboport-equipment", count=1},
-  {name="night-vision-equipment", count=1},
-  {name="basic-exoskeleton-equipment", count=1},
-  {name="battery-mk2-equipment", count=2},
-  {name="energy-shield-mk2-equipment", count=2},
-  {name="fusion-reactor-equipment", count=2},
-  {name="basic-laser-defense-equipment", count=1},
-  {name="basic-electric-discharge-defense-equipment", count=1}
+  {name="power-armor-mk2", count=2},
+  {name="personal-roboport-equipment", stackCount=1},
+  {name="night-vision-equipment", stackCount=1},
+  {name="basic-exoskeleton-equipment", stackCount=1},
+  {name="battery-mk2-equipment", stackCount=1},
+  {name="energy-shield-mk2-equipment", stackCount=1},
+  {name="fusion-reactor-equipment", stackCount=1},
+  {name="basic-laser-defense-equipment", stackCount=1},
+  {name="basic-electric-discharge-defense-equipment", stackCount=1}
 })
 
 registerBatch("startResource", {

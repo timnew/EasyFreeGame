@@ -163,7 +163,7 @@ registerPlayerApi("showBatch", function(player, batchName, give)
   if batchName == nil then
     showBatch(player)
   elseif give == nil then
-    showBatch(player, batchName)
+    showBatchContent(player, batchName)
   else
     insertBatch(player, batchName)
   end
